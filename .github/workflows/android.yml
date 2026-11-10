@@ -38,17 +38,7 @@ jobs:
 
       - name: Align Java and Kotlin versions
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path("TihiyProgress/app/build.gradle.kts")
-          s = p.read_text()
-          s = s.replace(
-              "android {",
-              "android {\n    compileOptions {\n        sourceCompatibility = JavaVersion.VERSION_17\n        targetCompatibility = JavaVersion.VERSION_17\n    }",
-              1
-          )
-          p.write_text(s)
-          PY    
+          python -c "from pathlib import Path; p=Path('TihiyProgress/app/build.gradle.kts'); s=p.read_text(); s=s.replace('android {', 'android {\\n    compileOptions {\\n        sourceCompatibility = JavaVersion.VERSION_17\\n        targetCompatibility = JavaVersion.VERSION_17\\n    }', 1); p.write_text(s)"    
 
       - name: Build debug APK
         run: gradle -p TihiyProgress :app:assembleDebug
